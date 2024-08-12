@@ -43,13 +43,11 @@ while (!exitGame)
                 break;
 
             case "3":
-                MultiplicationGame();                
+                MultiplicationGame();
                 break;
 
             case "4":
-                Console.WriteLine("TODO: Add division game.");
-
-                gameHistory.Add($"{DateTime.Now} - Division game");
+                DivisionGame();                
                 break;
 
             case "5":
@@ -302,6 +300,94 @@ void MultiplicationGame()
     }
 }
 // Divide
+void DivisionGame()
+{
+    Console.Clear();
+
+    bool exitGame = false;
+    string? userInput;
+    gameHistory.Add($"{DateTime.Now} - Division game");
+
+    while (!exitGame)
+    {
+        int dividend;
+        int divisor;
+        Random randomInt = new Random();
+
+        // Quotient must be whole number.
+        do {
+
+        // Generate random dividend and divisor.        
+        dividend = randomInt.Next(0, 101);
+
+        // Divisor must be smaller than dividend.
+        divisor = randomInt.Next(1, dividend + 1);
+
+        } while (dividend % divisor != 0 || dividend == divisor);
+
+
+
+        // Display the formula on screen.
+        Console.WriteLine($"{dividend} / {divisor} = ?");
+
+        // Ask user to input answer.
+        var userAnswer = Console.ReadLine();
+        var actualAnswer = dividend / divisor;
+        int userAnswerToInt;
+
+        // Validate user input
+        while (!(Int32.TryParse(userAnswer, out userAnswerToInt)))
+        {
+
+            Console.WriteLine("Enter a number!");
+            userAnswer = Console.ReadLine();
+
+        }
+
+        // Check answer
+        if (userAnswerToInt == actualAnswer)
+        {
+            Console.WriteLine("That's right!  Press any key to try another problem.  Press Q to return to main menu.");
+            userInput = Console.ReadLine();
+
+            if (userInput != null)
+            {
+                switch (userInput.ToLower())
+                {
+                    case "q":
+                        exitGame = true;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("Woops!  Not quite!  The right answer is {0}", actualAnswer);
+            Console.WriteLine("Press any key to try another problem.  Press Q to return to main menu.");
+
+            userInput = Console.ReadLine();
+
+            if (userInput != null)
+            {
+                switch (userInput.ToLower())
+                {
+                    case "q":
+                        exitGame = true;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+
+
+
+    }
+}
 
 // Display previous games
 void DisplayGameHistory()
