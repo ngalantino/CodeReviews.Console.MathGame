@@ -323,7 +323,7 @@ void DivisionGame()
         // Divisor must be smaller than dividend.
         divisor = randomInt.Next(1, dividend + 1);
 
-        } while (dividend % divisor != 0 || dividend == divisor);
+        } while (dividend % divisor != 0 || dividend == divisor || divisor == 1);  // Check that remainder of division is zero, dividend and divisor are different numbers, and divisor is not 1 (too easy)
 
 
 
